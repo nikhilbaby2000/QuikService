@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Quik Service</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -13,7 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #fff;
+                background-color: #f5e73f;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
@@ -78,8 +78,9 @@
             @endif
 
             <div class="content">
+                <img src="car-wash-logo.png" style="width: 75px;">
                 <div class="title m-b-md">
-                    Book Your Wash!
+                    Book Your Service!
                 </div>
 
                 <div class="links">
