@@ -64,6 +64,7 @@
             margin-bottom: 30px;
         }
     </style>
+    @include('layouts.header')
     @yield('header')
 </head>
 <body>

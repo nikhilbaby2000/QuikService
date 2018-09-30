@@ -79,6 +79,7 @@
 
             <div class="content">
                 <img src="car-wash-logo.png" style="width: 75px;">
+                <div>Quik Service</div>
                 <div class="title m-b-md">
                     Book Your Service!
                 </div>

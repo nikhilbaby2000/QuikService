@@ -68,4 +68,13 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function registerNew()
+    {
+        if ($this->guard()->check()) {
+            return redirect($this->redirectPath());
+        }
+
+        return view();
+    }
 }
