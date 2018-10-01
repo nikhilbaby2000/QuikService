@@ -12,10 +12,23 @@
 */
 
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('password-reset', ['as' => 'password_reset', 'uses' => 'LoginController@passwordReset']);
+
+
+Route::namespace('Auth')
+    ->group(function () {
+        Route::get('login', ['as' => 'login_view', 'uses' => 'LoginController@showLoginForm']);
+        Route::post('login', ['as' => 'login', 'uses' => 'LoginController@login']);
+
+        Route::get('register', ['as' => 'register_view', 'uses' => 'RegisterController@showRegistrationForm']);
+        Route::post('register', ['as' => 'register', 'uses' => 'RegisterController@register']);
+    });
 
 Route::prefix('shop')
     ->namespace('Shop')

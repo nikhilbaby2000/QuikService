@@ -14,7 +14,7 @@ class ShopController extends BaseShopController
 
     public function index()
     {
-
+        dd(122);
     }
 
 }
