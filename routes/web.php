@@ -18,16 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('password-reset', ['as' => 'password_reset', 'uses' => 'LoginController@passwordReset']);
-
 
 Route::namespace('Auth')
     ->group(function () {
         Route::get('login', ['as' => 'login_view', 'uses' => 'LoginController@showLoginForm']);
-        Route::post('login', ['as' => 'login', 'uses' => 'LoginController@login']);
+        Route::post('login', ['as' => 'login', 'uses' => 'LoginController@loginBy']);
+        Route::post('request-otp', ['as' => 'request_otp', 'uses' => 'LoginController@requestOTP']);
+
+        Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
         Route::get('register', ['as' => 'register_view', 'uses' => 'RegisterController@showRegistrationForm']);
         Route::post('register', ['as' => 'register', 'uses' => 'RegisterController@register']);
+
+        Route::get('forgot-password', ['as' => 'forgot_password', 'uses' => 'LoginController@forgotPassword']);
+
     });
 
 Route::prefix('shop')

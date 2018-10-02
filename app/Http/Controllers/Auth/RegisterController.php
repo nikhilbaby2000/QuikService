@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\QuikService\Constants\Auth\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -48,7 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'sometimes|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -58,15 +59,19 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create($data = [])
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        $user = User::create([
+            'name' => data_get($data, 'name'),
+            'email' => data_get($data, 'email'),
+            'password' => bcrypt(data_get($data, 'password')),
         ]);
+
+        $user->attachRole(Role::USER);
+
+        return $user;
     }
 
     public function registerNew()

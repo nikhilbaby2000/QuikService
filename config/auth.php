@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -97,6 +97,23 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Handling SMS OTP
+    |--------------------------------------------------------------------------
+    |
+    | Specify the database table which handles the mobile OTP.
+    | The OTP code expiration duration in minutes.
+    | The OTP code character length.
+    |
+    */
+
+    'mobile_otp' => [
+//        'model' => App\Models\MobileOtp::class,
+        'expire' => 30,
+        'length' => 6,
     ],
 
 ];

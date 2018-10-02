@@ -27,7 +27,7 @@
         width: 100%!important;
     }
     .container {
-        width: 980px;
+        width: auto;
         margin-right: auto;
         margin-left: auto;
     }
@@ -272,6 +272,61 @@
     a {
         background-color: transparent;
     }
+    .session-authentication .flash {
+        padding: 15px 20px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        font-size: 13px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5px;
+    }
+    .flash-full {
+        margin-top: -1px;
+        border-width: 1px 0;
+        border-radius: 0;
+    }
+
+    .flash {
+        position: relative;
+        padding: 16px;
+        color: #032f62;
+        background-color: #dbedff;
+        border: 1px solid rgba(27,31,35,0.15);
+        border-radius: 3px;
+    }
+    .flash-error {
+        color: #86181d;
+        background-color: #ffdce0;
+        border-color: rgba(27,31,35,0.15);
+    }
+    a.login-alternative {
+        font-size: 13px;
+    }
+    a.forgot-login {
+        float: right;
+    }
+    button, html [type="button"], [type="reset"], [type="submit"] {
+        -webkit-appearance: button;
+    }
+    .flash-close {
+        float: right;
+        padding: 16px;
+        margin: -16px;
+        color: inherit;
+        text-align: center;
+        cursor: pointer;
+        background: none;
+        border: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        opacity: 0.6;
+    }
+    body.min-width-0.page-responsive .flash-full .container {
+        width: auto;
+        max-width: 980px;
+    }
 
 </style>
 
@@ -281,9 +336,8 @@
 
         <div class="header header-logged-out width-full pt-5 pb-4" role="banner">
             <div class="container clearfix width-full text-center">
-                <a class="header-logo" href="https://github.com/" aria-label="Homepage">
+                <a class="header-logo" href="/" aria-label="Homepage">
                     <img src="{{ asset('car-wash-logo.png') }}" height="50px">
-                    {{--<svg height="48" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="48" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>--}}
                 </a>
             </div>
         </div>
@@ -292,42 +346,94 @@
     </div>
     <div role="main" class="application-main ">
 
-        <div id="js-pjax-container" data-pjax-container="">
+        <div>
+            <div class="auth-form px-3">
 
-
-            <div class="auth-form px-3" id="login">
-
-                <form action="{{ route('login') }}" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓">
+                <form action="{{ route('login') }}" accept-charset="UTF-8" method="post" >
                     {{ csrf_field() }}
                     <div class="auth-form-header p-0">
                         <h1>Sign in to QuikService</h1>
                     </div>
 
-                    <div id="js-flash-container"></div>
+                    <div id="js-flash-container">
+                        @if (get_flash('error'))
+                            @include('partials.flash-message', ['type' => 'error', 'message' => get_flash('error')])
+                        @endif
+                    </div>
 
-                    <div class="auth-form-body mt-3">
+                    <?php
+                        $isEmail = get_flash('by_email');
+                    ?>
 
-                        <label for="login_field">Email address</label>
-                        <input type="text" name="login" id="login_field" class="form-control input-block" tabindex="1" autocapitalize="off" autocorrect="off" autofocus="autofocus" autocomplete="off">
+                    <div class="auth-form-body mt-3 login-email" @if(!(!empty($isEmail) && $isEmail == 'email')) style="display: none;" @endif>
+
+                        <label for="email">Email address</label>
+                        <input type="text" name="email" id="email" class="form-control input-block" tabindex="1" autocomplete="off">
 
                         <label for="password">
-                            Password <a class="label-link" href="{{ route('password_reset') }}">Forgot password?</a>
+                            Password <a class="label-link forgot-login" href="{{ route('forgot_password') }}">Forgot password?</a>
                         </label>
                         <input type="password" name="password" id="password" class="form-control form-control input-block" tabindex="2" autocomplete="off">
+                        <a class="label-link login-alternative" href="javascript:$('.login-email').slideUp(); $('.login-otp').slideDown();">Login with OTP?</a>
 
-                        <input type="submit" name="commit" value="Sign in" tabindex="3" class="btn btn-primary btn-block" data-disable-with="Signing in…">
+                        <input type="submit" value="Sign in" tabindex="3" class="btn btn-primary btn-block">
+                    </div>
+
+                    <div class="auth-form-body mt-3 login-otp" @if($isEmail == 'email') style="display: none;" @endif>
+
+                        <div class="request-otp">
+                            <label for="mobile">Mobile number</label>
+                            <input type="text" name="mobile" id="mobile" class="form-control input-block" tabindex="1" autocomplete="off">
+                            <a class="label-link login-alternative" href="javascript:$('.login-otp').slideUp(); $('.login-email').slideDown();">Login with Email?</a>
+                            <input type="button" name="commit" value="Request OTP" class="btn btn-primary btn-block">
+                        </div>
+
+                        <div class="submit-otp" style="display: none;">
+                            <label for="otp">
+                                OTP <a class="label-link login-alternative" href="javascript:$('.login-otp').slideUp(); $('.login-email').slideDown();">Login with email?</a>
+                            </label>
+                            <input type="text" name="otp" id="otp" class="form-control form-control input-block" tabindex="2" autocomplete="off">
+
+                            <input type="submit" name="commit" value="Sign in" tabindex="3" class="btn btn-primary btn-block">
+                        </div>
+
                     </div>
                 </form>
 
-                <p class="create-account-callout mt-3">
-                    New to QuikService?
-                    <a data-ga-click="Sign in, switch to sign up" href="{{ route('register_view') }}">Create an account</a>.
-                </p>
+                {{--<p class="create-account-callout mt-3">--}}
+                    {{--New to QuikService?--}}
+                    {{--<a data-ga-click="Sign in, switch to sign up" href="{{ route('register_view') }}">Create an account</a>.--}}
+                {{--</p>--}}
             </div>
 
         </div>
-        <div class="modal-backdrop js-touch-events"></div>
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.request-otp input[type=button]').click(function () {
+            ajax('{{ route('request_otp') }}',
+                {mobile: $('#mobile').val()},
+                function (response) {
+                    if (!response.data.error) {
+                        $('.request-otp').slideUp();
+                        $('.submit-otp').slideDown();
+                        message(response.success, 'success');
+                    } else {
+                        message(response.data.error, 'error');
+
+                    }
+                },
+            function (jqxhr) {
+                message(jqxhr.responseJSON.message, 'error');
+            })
+        });
+
+    });
+</script>
 @endsection

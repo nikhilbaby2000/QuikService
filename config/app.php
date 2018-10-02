@@ -177,6 +177,28 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\QuikService\Libraries\Access\AccessServiceProvider::class,
+//        App\QuikService\Libraries\Payment\PaymentServiceProvider::class,
+        App\QuikService\Libraries\SMS\SMSServiceProvider::class,
+        App\QuikService\Libraries\QueryFilter\QueryFilterServiceProvider::class,
+
+//        App\QuikService\Services\File\FileUploaderServiceProvider::class,
+//        App\QuikService\Services\Image\ImageUploaderServiceProvider::class,
+        App\QuikService\Services\OTP\OTPFunctionalityServiceProvider::class,
+//        App\QuikService\Services\PDF\PDFFunctionalityServiceProvider::class,
+
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
     ],
 
     /*
