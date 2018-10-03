@@ -67,7 +67,7 @@
     body {
         min-width: 1012px;
         word-wrap: break-word;
-        background-color: #f9f9f9 !important;
+        background-color: #ffff0061 !important;
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
         font-size: 14px;
         line-height: 1.5;
@@ -125,6 +125,7 @@
     .session-authentication .auth-form-body {
         border-top: 1px solid #d8dee2;
         border-radius: 5px;
+        background-color: #e4e4d630;
     }
     .auth-form-body {
         padding: 20px;
@@ -327,6 +328,13 @@
         width: auto;
         max-width: 980px;
     }
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+    }
 
 </style>
 
@@ -383,7 +391,7 @@
 
                         <div class="request-otp">
                             <label for="mobile">Mobile number</label>
-                            <input type="text" name="mobile" id="mobile" class="form-control input-block" tabindex="1" autocomplete="off">
+                            <input type="number" max="10" name="mobile" id="mobile" class="form-control input-block" tabindex="1" autocomplete="off">
                             <a class="label-link login-alternative" href="javascript:$('.login-otp').slideUp(); $('.login-email').slideDown();">Login with Email?</a>
                             <input type="button" name="commit" value="Request OTP" class="btn btn-primary btn-block">
                         </div>

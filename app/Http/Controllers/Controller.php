@@ -20,4 +20,34 @@ class Controller extends BaseController
 
         return count($keys) == count($data);
     }
+
+    public function otp()
+    {
+        $logs = explode("\n", file_get_contents(storage_path('logs/laravel.log')));
+
+        $logs = array_filter($logs, function ($log) {
+            return substr_exist($log, 'SMS Logger') || substr_exist($log, 'Mobile Number') || substr_exist($log, 'OTP is');
+        });
+
+        $otps = [];
+        $mobile = $time = '';
+        foreach ($logs as $log) {
+            if (substr_exist($log, 'SMS Logger')) {
+                $time = array_first(explode(']', str_replace('[', '', $log)));
+            }
+
+            if (substr_exist($log, 'Mobile Number')) {
+                $mobile = str_replace('Mobile Number(s): ', '', $log);
+            }
+
+            if (substr_exist($log, 'OTP is')) {
+                $otps[] = [
+                    'mobile' => $mobile,
+                    'otp_message' => $time . ': ' . str_replace('Message: ', '', $log),
+                ];
+            }
+        }
+
+        return array_values($otps);
+    }
 }

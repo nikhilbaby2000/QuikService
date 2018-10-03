@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('otp', ['as' => 'otp', 'uses' => 'Controller@otp']);
 
 Route::namespace('Auth')
     ->group(function () {

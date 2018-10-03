@@ -769,9 +769,9 @@ if (! function_exists('flash')) {
         foreach ($messages as $key => $message) {
             Session::flash($key, $message);
         }
-
     }
 }
+
 if (! function_exists('get_flash')) {
 
     /**
@@ -784,5 +784,23 @@ if (! function_exists('get_flash')) {
     function get_flash($key, $default = null)
     {
         return session($key, $default);
+    }
+}
+
+if (! function_exists('substr_exist')) {
+
+    /**
+     * Get Flash value.
+     *
+     * @param $haystack
+     * @param $needle
+     * @param bool $case_insensitive
+     * @return bool
+     */
+    function substr_exist($haystack, $needle, $case_insensitive = true)
+    {
+        return $case_insensitive
+            ? !is_bool(strpos(strtolower($haystack), strtolower($needle)))
+            : !is_bool(strpos($haystack, $needle));
     }
 }
