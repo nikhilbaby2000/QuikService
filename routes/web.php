@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('otp', ['as' => 'otp', 'uses' => 'Controller@otp']);
+Route::get('verify-email/{token}', ['as' => 'verify_email', 'uses' => 'ConfirmationController@verifyEmail']);
+Route::get('verify', ['as' => 'verify', 'uses' => 'ConfirmationController@verify']);
 
 Route::namespace('Auth')
     ->group(function () {

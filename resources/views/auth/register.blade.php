@@ -272,6 +272,52 @@
     a {
         background-color: transparent;
     }
+    .session-authentication .flash {
+        padding: 15px 20px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        font-size: 13px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 5px;
+    }
+    .flash-full {
+        margin-top: -1px;
+        border-width: 1px 0;
+        border-radius: 0;
+    }
+
+    .flash {
+        position: relative;
+        padding: 16px;
+        color: #032f62;
+        background-color: #dbedff;
+        border: 1px solid rgba(27,31,35,0.15);
+        border-radius: 3px;
+    }
+    .flash-error {
+        color: #86181d;
+        background-color: #ffdce0;
+        border-color: rgba(27,31,35,0.15);
+    }
+    .flash-close {
+        float: right;
+        padding: 16px;
+        margin: -16px;
+        color: inherit;
+        text-align: center;
+        cursor: pointer;
+        background: none;
+        border: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        opacity: 0.6;
+    }
+    body.min-width-0.page-responsive .flash-full .container {
+        width: auto;
+        max-width: 980px;
+    }
 
 </style>
 
@@ -292,7 +338,13 @@
                         <h1>Sign up to QuikService</h1>
                     </div>
 
-                    <div id="js-flash-container"></div>
+                    <div id="js-flash-container">
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                @include('partials.flash-message', ['type' => 'error', 'message' => $error])
+                            @endforeach
+                        @endif
+                    </div>
 
                     <div class="auth-form-body mt-3">
 

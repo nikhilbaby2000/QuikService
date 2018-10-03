@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile', 10)->nullable()->unique();
             $table->string('otp')->nullable();
             $table->string('password')->nullable();
+            $table->string('email_confirmation_token')->nullable();
             $table->boolean('email_confirmed')->default(false);
             $table->boolean('mobile_confirmed')->default(false);
             $table->boolean('active')->default(false);

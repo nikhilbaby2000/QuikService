@@ -9,9 +9,7 @@
             <p>Hi {{ $user->name }},</p>
 
             <div class="text-center">
-                <a href="{{ url("api/v1/verify/email/{$token}?email=".$user->email) }}" target="_blank" class="btn btn-default">
-                    Verify your email
-                </a>
+                Click <a href="{{ url("verify-email/{$token}?email=".$user->email) }}" target="_blank" class="btn btn-default">here</a> Verify your email.
             </div>
 
             <div class="hr-line"></div>
@@ -20,12 +18,8 @@
 
             <ul>
                 <li>Choice of genuine and verified vendors</li>
-                <li>Schedule Pre-move survey & Property Agent visits</li>
-                <li>Compare and share quotes with a click</li>
-                <li>Hassle free relocation</li>
                 <li>No hidden charges</li>
                 <li>Secured online payment</li>
-                <li>Spend extra quality time with your family.</li>
             </ul>
         </div>
     </div>

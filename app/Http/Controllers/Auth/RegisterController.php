@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use App\QuikService\Constants\Auth\Role;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Jobs\Notifications\Auth\EmailConfirmationNotification;
 
 class RegisterController extends Controller
 {
@@ -28,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/verify';
 
     /**
      * Create a new controller instance.
@@ -55,6 +58,20 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->redirectTo .= '?email=' . $user->email;
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -71,7 +88,20 @@ class RegisterController extends Controller
 
         $user->attachRole(Role::USER);
 
+        $token = $this->generateToken();
+
+        $user->forceFill([
+            'email_confirmation_token' => bcrypt($token)
+        ])->save();
+
+        dispatch(new EmailConfirmationNotification($user, $token));
+
         return $user;
+    }
+
+    protected function generateToken(int $length = 40)
+    {
+        return str_random($length);
     }
 
     public function registerNew()

@@ -1,4 +1,14 @@
 <style type="text/css">
+    body {
+        min-width: 1012px;
+        word-wrap: break-word;
+        background-color: #f9f9f9 !important;
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+        font-size: 14px;
+        line-height: 1.5;
+        color: #24292e;
+        margin: 0 !important
+    }
     .position-relative {
         position: relative!important;
     }
@@ -192,6 +202,12 @@
     }
     .text-gray {
         color: grey;
+    }
+    a {
+        text-decoration: none;
+    }
+    a {
+        background-color: transparent;
     }
 </style>
 
