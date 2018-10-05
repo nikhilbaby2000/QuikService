@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use App\QuikService\Exceptions\CustomValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -47,6 +48,8 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof NotFoundHttpException) {
             return response()->view('errors.404', [], 404);
+        } elseif ($exception instanceof CustomValidationException) {
+            return response()->view('errors.custom', ['error' => array_first(array_first($exception->getMessages()))], 200);
         }
 
         return parent::render($request, $exception);

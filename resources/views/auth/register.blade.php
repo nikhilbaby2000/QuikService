@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('title')
-    Sign in to QuikService
+    Register | QuikService
 @endsection
 
 @include('layouts.header')

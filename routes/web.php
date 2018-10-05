@@ -61,8 +61,18 @@ Route::namespace('Auth')
                 // Get the Forgot Password view
                 Route::get('/', ['as' => 'forgot_password_view', 'uses' => 'ForgotPasswordController@view']);
 
+                // Submit the forgot password request
+                Route::post('/', ['as' => 'forgot_password', 'uses' => 'ForgotPasswordController@forgotPassword']);
+            }, null);
+
+        Route::prefix('reset-password')
+            ->group(function () {
+
+                // Get the Reset Password view
+                Route::get('{token}', ['as' => 'reset_password_view', 'uses' => 'ForgotPasswordController@resetView']);
+
                 // Reset the password
-                Route::post('/', ['as' => 'forgot_password', 'uses' => 'ForgotPasswordController@reset']);
+                Route::post('{token}', ['as' => 'reset_password', 'uses' => 'ForgotPasswordController@reset']);
             }, null);
 
     }, null);

@@ -14,8 +14,7 @@ class ResetPasswordRequest extends BaseRequest
     public function rules()
     {
         return [
-            'token'     => 'required',
-            'email'     => 'required|email|exists:users,email,active,1',
+            'email'     => 'required|email|exists:users,email',
             'password'  => 'required|min:6|confirmed',
         ];
     }

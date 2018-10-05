@@ -38,6 +38,9 @@
                         @if (get_flash('error'))
                             @include('partials.flash-message', ['type' => 'error', 'message' => get_flash('error')])
                         @endif
+                        @if (get_flash('success'))
+                            @include('partials.flash-message', ['type' => 'success', 'message' => get_flash('success')])
+                        @endif
                     </div>
 
                     <?php

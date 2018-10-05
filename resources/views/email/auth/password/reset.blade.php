@@ -10,7 +10,7 @@
             <p>We've received a request to reset your password. You can reset your password by clicking on the button below.</p>
 
             <div class="text-center">
-                <a href="{{ url('/password/reset/' . $token . '?email=' . rawurlencode($user->email)) }}"
+                <a href="{{ url('/reset-password/' . $token . '?email=' . rawurlencode($user->email)) }}"
                    target="_blank" class="btn btn-default">
                     Reset Password
                 </a>

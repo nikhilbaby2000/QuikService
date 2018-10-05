@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('title')
-    Forgot Password | QuikService
+    Reset Password | QuikService
 @endsection
 
 @section('header')
@@ -17,7 +17,7 @@
         <div>
             <div class="auth-form px-3">
 
-                <form action="{{ route('forgot_password') }}" accept-charset="UTF-8" method="post" >
+                <form action="{{ route('reset_password', ['token' => $token]) }}" accept-charset="UTF-8" method="post" >
                     {{ csrf_field() }}
                     <div class="auth-form-header p-0">
                         <h1>Reset your password</h1>
@@ -31,17 +31,15 @@
                         @endif
                     </div>
 
-                    <?php $passwordReset = get_flash('reset-send') ?>
-
                     <div class="auth-form-body mt-3">
-                        @if(!$passwordReset)
-                        <label for="email">Enter your email address and we will send you a link to reset your password.</label>
-                        <input type="text" name="email" id="email" class="form-control input-block" tabindex="1" placeholder="Enter your email address">
-                            <input type="submit" value="Send password reset email" tabindex="3" class="btn btn-primary btn-block">
-                        @else
-                            <p>{{ $passwordReset }}</p>
-                            <a type="button" href="{{ route('login_view') }}" value="Return to sign in" tabindex="3" class="btn btn-primary btn-block">Return to sign in</a>
-                        @endif
+                        <input type="hidden" name="email" value="{{ $email }}">
+
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control form-control input-block" tabindex="2" autocomplete="off">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control form-control input-block" tabindex="2" autocomplete="off">
+
+                        <input type="submit" name="commit" value="Reset password" tabindex="3" class="btn btn-primary btn-block" data-disable-with="Signing in…">
                     </div>
 
                 </form>
