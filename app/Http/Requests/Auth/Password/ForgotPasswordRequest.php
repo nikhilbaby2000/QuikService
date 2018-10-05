@@ -14,7 +14,19 @@ class ForgotPasswordRequest extends BaseRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
+        ];
+    }
+
+    /**
+     * Get the validation error messages.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.exists' => 'Can\'t find that email, sorry.',
         ];
     }
 }

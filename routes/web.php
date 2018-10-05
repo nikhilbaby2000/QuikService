@@ -18,28 +18,58 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Get Mobile Login OTP from log
 Route::get('otp', ['as' => 'otp', 'uses' => 'Controller@otp']);
+
+// Verify the Email & Token.
 Route::get('verify-email/{token}', ['as' => 'verify_email', 'uses' => 'ConfirmationController@verifyEmail']);
+
+// Get the verify intimation.
 Route::get('verify', ['as' => 'verify', 'uses' => 'ConfirmationController@verify']);
 
 Route::namespace('Auth')
     ->group(function () {
-        Route::get('login', ['as' => 'login_view', 'uses' => 'LoginController@showLoginForm']);
-        Route::post('login', ['as' => 'login', 'uses' => 'LoginController@loginBy']);
-        Route::post('request-otp', ['as' => 'request_otp', 'uses' => 'LoginController@requestOTP']);
 
+        Route::prefix('login')
+            ->group(function () {
+                // Get Login View
+                Route::get('/', ['as' => 'login_view', 'uses' => 'LoginController@view']);
+
+                // Do Login
+                Route::post('/', ['as' => 'login', 'uses' => 'LoginController@login']);
+            }, null);
+
+        // Do Logout
         Route::get('logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
-        Route::get('register', ['as' => 'register_view', 'uses' => 'RegisterController@showRegistrationForm']);
-        Route::post('register', ['as' => 'register', 'uses' => 'RegisterController@register']);
+        // Request Mobile OTP
+        Route::post('request-otp', ['as' => 'request_otp', 'uses' => 'LoginController@requestOTP']);
 
-        Route::get('forgot-password', ['as' => 'forgot_password', 'uses' => 'LoginController@forgotPassword']);
+        Route::prefix('register')
+            ->group(function () {
 
-    });
+                // Get the Registration view
+                Route::get('/', ['as' => 'register_view', 'uses' => 'RegisterController@view']);
+
+                // Do the User Registration
+                Route::post('/', ['as' => 'register', 'uses' => 'RegisterController@register']);
+            }, null);
+
+        Route::prefix('forgot-password')
+            ->group(function () {
+
+                // Get the Forgot Password view
+                Route::get('/', ['as' => 'forgot_password_view', 'uses' => 'ForgotPasswordController@view']);
+
+                // Reset the password
+                Route::post('/', ['as' => 'forgot_password', 'uses' => 'ForgotPasswordController@reset']);
+            }, null);
+
+    }, null);
 
 Route::prefix('shop')
     ->namespace('Shop')
     ->group(function () {
         Route::get('/', ['as' => 'shop_list', 'uses' => 'ShopController@index']);
         Route::get('{shop_code}/details', ['as' => 'shop_detail', 'uses' => 'ShopDetailController@show']);
-});
+}, null);

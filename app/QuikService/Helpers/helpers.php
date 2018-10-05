@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Cache\TaggableStore;
+use Illuminate\Support\Debug\Dumper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Builder;
@@ -802,5 +803,22 @@ if (! function_exists('substr_exist')) {
         return $case_insensitive
             ? !is_bool(strpos(strtolower($haystack), strtolower($needle)))
             : !is_bool(strpos($haystack, $needle));
+    }
+}
+
+if (! function_exists('p')) {
+    /**
+     * Dump the passed variables and continue the script.
+     *
+     * @param  mixed  $args
+     * @return void
+     */
+    function p(...$args)
+    {
+        http_response_code(500);
+
+        foreach ($args as $x) {
+            (new Dumper)->dump($x);
+        }
     }
 }

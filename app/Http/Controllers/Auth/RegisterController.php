@@ -35,8 +35,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -58,6 +56,23 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Get the registration form.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Request $request)
+    {
+        return $this->showRegistrationForm();
+    }
+
+    /**
+     * Register the User.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
@@ -99,6 +114,12 @@ class RegisterController extends Controller
         return $user;
     }
 
+    /**
+     * Generate an Email Verification Token of give length.
+     *
+     * @param int $length
+     * @return string
+     */
     protected function generateToken(int $length = 40)
     {
         return str_random($length);

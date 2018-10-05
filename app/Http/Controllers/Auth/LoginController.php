@@ -45,12 +45,23 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function forgotPassword(Request $request)
+    /**
+     * Get the login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function view()
     {
-
+        return $this->showLoginForm();
     }
 
-    public function loginBy(UserLoginRequest $request)
+    /**
+     * Attempt the login.
+     *
+     * @param UserLoginRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function login(UserLoginRequest $request)
     {
         if ($this->hasValues($request, ['mobile', 'otp'])) {
             return $this->loginUserWithOTP($request, Role::USER);
@@ -68,8 +79,6 @@ class LoginController extends Controller
 
         return $this->respondBadRequest('Missing login credentials');
     }
-
-
 
     /**
      * Login the user using their email and password.
@@ -147,7 +156,7 @@ class LoginController extends Controller
     {
         $user = User::where('email', $email)->first();
 
-        return $user && $user->hasRole($role) ? $user : null;
+        return $this->userWithRole($user, $role);
     }
 
     /**
@@ -161,7 +170,7 @@ class LoginController extends Controller
     {
         $user = User::where('username', $username)->first();
 
-        return $user && $user->hasRole($role) ? $user : null;
+        return $this->userWithRole($user, $role);
     }
 
     /**
@@ -175,9 +184,20 @@ class LoginController extends Controller
     {
         $user = User::where('mobile', $mobile)->first();
 
-        return $user && $user->hasRole($role) ? $user : null;
+        return $this->userWithRole($user, $role);
     }
 
+    /**
+     * Get the User if the user has the give role.
+     *
+     * @param User $user
+     * @param $role
+     * @return User|null
+     */
+    protected function userWithRole(User $user, $role)
+    {
+        return $user && $user->hasRole($role) ? $user : null;
+    }
 
     /**
      * Authenticate the user and respond accordingly.
@@ -227,9 +247,10 @@ class LoginController extends Controller
     {
         auth('web')->login($user, $remember);
 
-        return redirect($this->redirectTo);
-
-//        return $this->respondSuccess();
+        // Respond with a redirect for a web request & respond success for API calls.
+        return request()->has('_token')
+            ? redirect($this->redirectTo)
+            :  $this->respondSuccess();
     }
 
     /**
@@ -256,6 +277,12 @@ class LoginController extends Controller
         return $this;
     }
 
+    /**
+     * Request a login OTP for mobile.
+     *
+     * @param SendLoginOTPRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function requestOTP(SendLoginOTPRequest $request)
     {
         $mobile = $request->get('mobile');
@@ -274,9 +301,14 @@ class LoginController extends Controller
         $username = !empty($user->name) ? "Hi {$user->name}, " : '';
 
         return $this->respondOk([], "{$username}Please verify your OTP.");
-
     }
 
+    /**
+     * Finds a user by a give mobile number. If user doesn't exist, one will be created.
+     *
+     * @param $mobile
+     * @return $this|\Illuminate\Database\Eloquent\Model|null|object|static
+     */
     protected function findUserByMobile($mobile)
     {
         $user = User::where('mobile', $mobile)->first();
