@@ -13,7 +13,7 @@
         <!-- Styles -->
         <style>
             html, body {
-                background-color: #f5e73f;
+                background-color: #45b1e66b;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
@@ -79,7 +79,6 @@
 
             <div class="content">
                 <img src="car-wash-logo.png" style="width: 75px;">
-                <div>Quik Service</div>
                 <div class="title m-b-md">
                     Book Your Service!
                 </div>

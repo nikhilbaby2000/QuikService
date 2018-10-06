@@ -14,16 +14,16 @@
     <div class="position-relative js-header-wrapper ">
         <div id="js-pjax-loader-bar" class="pjax-loader-bar"><div class="progress"></div></div>
 
-        <div class="header header-logged-out width-full pt-5 pb-4" role="banner">
+        {{--<div class="header header-logged-out width-full pt-5 pb-4" role="banner">
             <div class="container clearfix width-full text-center">
                 <a class="header-logo" href="/" aria-label="Homepage">
                     <img src="{{ asset('car-wash-logo.png') }}" height="50px">
                 </a>
             </div>
-        </div>
+        </div>--}}
 
     </div>
-    <div role="main" class="application-main ">
+    <div role="main" class="application-main">
 
         <div>
             <div class="auth-form px-3">
@@ -33,6 +33,7 @@
                     <div class="auth-form-header p-0">
                         <h1>Sign in to QuikService</h1>
                     </div>
+
 
                     <div id="js-flash-container">
                         @if (get_flash('error'))
@@ -83,10 +84,10 @@
 
                 </form>
 
-                {{--<p class="create-account-callout mt-3">--}}
-                    {{--New to QuikService?--}}
-                    {{--<a data-ga-click="Sign in, switch to sign up" href="{{ route('register_view') }}">Create an account</a>.--}}
-                {{--</p>--}}
+                <p class="auth-alternative mt-3 text-center">
+                    <i class="fa fa-google fa-2x" aria-hidden="true"></i>
+                    <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                </p>
             </div>
 
         </div>

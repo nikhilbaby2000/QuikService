@@ -2,93 +2,22 @@
 
 @include('layouts.header')
 
+@section('header')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/basic.css') }}">
+    <style type="text/css">
+        .flash-close {
+            display: none !important;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     @include('partials.flash-message', ['type' => 'warn',
     'message' => "<h4> Please verify your email address to access all of QuikService’s features. </h4>An email containing verification instructions was sent to $email."
     ])
 
-    <style type="text/css">
-        .flash-close {
-            display: none;
-        }
-        .setup-header {
-            margin-right: 144px!important;
-            margin-left: 144px!important;
-            padding: 16px;
-        }
-        .setup-header h1 {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: 45px;
-            font-weight: 400;
-            line-height: 1.1;
-            letter-spacing: -1px;
-        }
-        .setup-header .lead {
-            margin-top: 2px;
-            margin-bottom: 0;
-            font-size: 21px;
-        }
-        .lead {
-            margin-bottom: 30px;
-            font-size: 20px;
-            font-weight: 300;
-            color: #586069;
-        }
-        .steps {
-            display: table;
-            width: 100%;
-            padding: 0;
-            margin: 30px auto 0;
-            overflow: hidden;
-            list-style: none;
-            border: 1px solid #dfe2e5;
-            border-radius: 3px;
-            box-shadow: 0 1px 3px rgba(27,31,35,0.05);
-        }
-        .steps li:first-child {
-            border-left: 0;
-        }
-        .steps .complete {
-            color: #586069;
-        }
-        .steps li {
-            display: table-cell;
-            width: 33.3%;
-            padding: 10px 15px;
-            color: #c6cbd1;
-            cursor: default;
-            background-color: #fafbfc;
-            border-left: 1px solid #dfe2e5;
-        }
-        @media (min-width: 768px) {
-            .text-md-left {
-                text-align: left!important;
-            }
-        }
-        .steps li.current {
-            color: #24292e;
-            background-color: #fff;
-        }
-        .steps .complete .octicon {
-            color: #28a745;
-        }
-        .steps li .octicon {
-            float: left;
-            margin-right: 15px;
-            margin-bottom: 5px;
-        }
-        svg:not(:root) {
-            overflow: hidden;
-        }
-        .steps li .step {
-            display: block;
-        }
-
-    </style>
-
-    <div class="setup-header setup-org">
+<div class="setup-header setup-org">
         <h1>Welcome to QuikService</h1>
         <p class="lead">
             You've taken your first step into a larger world, <strong>{{ $email }}</strong>.<br>
