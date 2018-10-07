@@ -1,7 +1,7 @@
 <?php
 
 // The default SMS Sender ID to use when one is not provided.
-$defaultSenderId = 'HPYLCT';
+$defaultSenderId = 'QKSRVC';
 
 return [
 

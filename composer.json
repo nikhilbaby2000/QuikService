@@ -10,7 +10,12 @@
         "doctrine/dbal": "^2.8",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
-        "spatie/laravel-fractal": "^5.3"
+        "graham-campbell/throttle": "^6.0",
+        "spatie/laravel-fractal": "^5.3",
+        "guzzlehttp/guzzle": "^6.3",
+        "intervention/image": "^2.4",
+        "nicolaslopezj/searchable": "^1.9",
+        "ramsey/uuid": "^3.6"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

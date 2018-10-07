@@ -822,3 +822,58 @@ if (! function_exists('p')) {
         }
     }
 }
+
+if (! function_exists('shell')) {
+    /**
+     * Get the shell command result
+     *
+     * @param string $command
+     * @param bool $raw
+     * @return array|string
+     */
+    function shell($command, $raw = false)
+    {
+        $resultRaw = shell_exec($command);
+
+        return $raw
+            ? $resultRaw
+            : array_filter(explode("\n", $resultRaw));
+    }
+}
+
+if (! function_exists('process_list')) {
+    /**
+     * Get the linux process details.
+     *
+     * @param string $process
+     * @return array|string
+     */
+    function process_list($process = null)
+    {
+        $allProcess = array_map(function ($processString) {
+            return trim(preg_replace('/\s+/', ' ', $processString));
+        }, shell('ps -a'));
+
+        $keys = explode(' ', array_shift($allProcess));
+
+        $allProcess = array_values(array_map(function ($processString) use ($keys) {
+            $process = explode(' ', $processString, count($keys));
+            return array_combine($keys, $process);
+        }, $allProcess));
+
+        if (!empty($process) && !empty($allProcess)) {
+
+            $position = false;
+            foreach (array_column($allProcess, 'COMMAND') as $key => $command) {
+                if (substr_exist($command, $process)) {
+                    $position = $key;
+                    break;
+                }
+            }
+
+            return is_bool($position) ? [] : data_get($allProcess, $position, []);
+        }
+
+        return $allProcess;
+    }
+}
