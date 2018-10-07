@@ -20,19 +20,19 @@
                 </summary>
                 <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">
 
-                    <a role="menuitem" class="dropdown-item" href="/new" data-ga-click="Header, create new repository">
+                    <a role="menuitem" class="dropdown-item" href="/new/service-request" data-ga-click="Header, create new service request">
                         New Service Request
                     </a>
 
-                    <a role="menuitem" class="dropdown-item" href="/new/import" data-ga-click="Header, import a repository">
+                    <a role="menuitem" class="dropdown-item" href="/new/refund-request" data-ga-click="Header, refund request">
                         Refund Request
                     </a>
 
-                    <a role="menuitem" class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
+                    <a role="menuitem" class="dropdown-item" href="/new/enquiry" data-ga-click="Header, create new enquiry">
                         New Enquiry
                     </a>
 
-                    <a role="menuitem" class="dropdown-item" href="/organizations/new" data-ga-click="Header, create new organization">
+                    <a role="menuitem" class="dropdown-item" href="/new/branch" data-ga-click="Header, create new branch">
                         Add New Branch
                     </a>
 
@@ -49,16 +49,16 @@
                 </summary>
                 <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">
                     <ul>
-                        <li class="header-nav-current-user css-truncate"><a role="menuitem" class="no-underline user-profile-link px-3 pt-2 pb-2 mb-n2 mt-n1 d-block" href="/nikhilbaby2000" data-ga-click="Header, go to profile, text:Signed in as">Signed in as <strong class="css-truncate-target">nikhilbaby2000</strong></a></li>
+                        <li class="header-nav-current-user css-truncate"><a role="menuitem" class="no-underline user-profile-link px-3 pt-2 pb-2 mb-n2 mt-n1 d-block" href="/home" data-ga-click="Header, go to profile, text:Signed in as">Signed in as <strong class="css-truncate-target">nikhilbaby2000</strong></a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a role="menuitem" class="dropdown-item" href="/nikhilbaby2000" data-ga-click="Header, go to profile, text:your profile">Profile</a></li>
-                        <li><a role="menuitem" class="dropdown-item" href="/nikhilbaby2000?tab=repositories" data-ga-click="Header, go to repositories, text:your repositories">Service History</a></li>
+                        <li><a role="menuitem" class="dropdown-item" href="/profile" data-ga-click="Header, go to profile, text:your profile">Profile</a></li>
+                        <li><a role="menuitem" class="dropdown-item" href="/service-history?tab=repositories" data-ga-click="Header, go to repositories, text:your repositories">Service History</a></li>
 
 
-                        <li><a role="menuitem" class="dropdown-item" href="/nikhilbaby2000?tab=stars" data-ga-click="Header, go to starred repos, text:your stars">Your Activities</a></li>
-                        <li><a role="menuitem" class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, your gists, text:your gists">Payments</a></li>
+                        <li><a role="menuitem" class="dropdown-item" href="/activities?tab=stars" data-ga-click="Header, go to starred repos, text:your stars">Your Activities</a></li>
+                        <li><a role="menuitem" class="dropdown-item" href="/payments" data-ga-click="Header, your gists, text:your gists">Payments</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a role="menuitem" class="dropdown-item" href="https://help.github.com" data-ga-click="Header, go to help, text:help">Help</a></li>
+                        <li><a role="menuitem" class="dropdown-item" href="/help" data-ga-click="Header, go to help, text:help">Help</a></li>
                         <li><a role="menuitem" class="dropdown-item" href="/settings/profile" data-ga-click="Header, go to settings, icon:settings">Settings</a></li>
                         <li>
                             <a role="menuitem" href="/logout" class="dropdown-item dropdown-signout" data-ga-click="Header, sign out, icon:logout" role="menuitem">
