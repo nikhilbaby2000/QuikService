@@ -48,7 +48,6 @@ class QueueVerifierCommand extends Command
     {
         $queue = $this->argument('queue');
         $background = !is_null($b = $this->option('b')) ? (bool) $b : true;
-
         $runningData = process_list($queue);
 
         if (!empty($queue) && empty($runningData)) {
@@ -61,10 +60,11 @@ class QueueVerifierCommand extends Command
             $paramString = implode(' ', $parameters);
             $argString = implode(' ', data_get(self::COMMANDS, "{$queue}.argv", []));
             $backgroundString = $background ? "> /dev/null 2>&1" : '';
+            $wd = str_replace('/app/Console/Commands', '', __DIR__);
 
-            return shell_exec("php artisan {$queue} {$argString} {$paramString} {$backgroundString}");
+            return exec("php {$wd}/artisan {$queue} {$argString} {$paramString} {$backgroundString}") ? 'Running' : 'Something Wrong';
         }
 
-        return $runningData;
+        return p($runningData);
     }
 }

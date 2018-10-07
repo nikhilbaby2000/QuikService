@@ -28,7 +28,7 @@
         <div>
             <div class="auth-form px-3">
 
-                <form action="{{ route('login') }}" accept-charset="UTF-8" method="post" >
+                <form action="{{ route('login') }}" accept-charset="UTF-8" method="post" novalidate>
                     {{ csrf_field() }}
                     <div class="auth-form-header p-0">
                         <h1>Sign in to QuikService</h1>
@@ -36,6 +36,11 @@
 
 
                     <div id="js-flash-container">
+                        @if ($errors->any())
+                            @foreach ($errors->all() as $error)
+                                @include('partials.flash-message', ['type' => 'error', 'message' => $error])
+                            @endforeach
+                        @endif
                         @if (get_flash('error'))
                             @include('partials.flash-message', ['type' => 'error', 'message' => get_flash('error')])
                         @endif
@@ -75,7 +80,7 @@
                             <label for="otp">
                                 OTP <a class="label-link login-alternative" href="javascript:$('.login-otp').slideUp(); $('.login-email').slideDown();">Login with email?</a>
                             </label>
-                            <input type="text" name="otp" id="otp" class="form-control form-control input-block" tabindex="2" autocomplete="off">
+                            <input type="number" max="6" name="otp" id="otp" class="form-control form-control input-block" tabindex="2" autocomplete="off">
 
                             <input type="submit" name="commit" value="Sign in" tabindex="3" class="btn btn-primary btn-block">
                         </div>
