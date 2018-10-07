@@ -11,6 +11,10 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/advanced-1.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/advanced-2.css') }}" rel="stylesheet">
+    <script crossorigin="anonymous" type="application/javascript" src="{{ asset('js/anonymous-1.js') }}"></script>
+    <script crossorigin="anonymous" async="async" type="application/javascript" src="{{ asset('js/anonymous-2.js') }}"></script>
 
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 

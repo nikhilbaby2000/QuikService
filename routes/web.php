@@ -12,6 +12,7 @@
 */
 
 
+use App\QuikService\Constants\Auth\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -76,6 +77,16 @@ Route::namespace('Auth')
             }, null);
 
     }, null);
+
+Route::middleware(role_middleware([Role::USER]))
+    ->group(function () {
+
+        //Get the Home page
+        Route::get('home', ['as' => 'home', 'uses' => 'HomeController']);
+
+    }, null);
+
+
 
 Route::prefix('shop')
     ->namespace('Shop')

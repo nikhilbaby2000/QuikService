@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Cache\TaggableStore;
@@ -875,5 +876,27 @@ if (! function_exists('process_list')) {
         }
 
         return $allProcess;
+    }
+}
+
+
+if (! function_exists('avatar')) {
+    /**
+     * Get Avatar URL.
+     *
+     * @param Model|null $model
+     * @return string
+     */
+    function avatar(Model $model = null)
+    {
+        if (empty($model)) {
+            return asset(config('quikservice.default.user.profile_picture'));
+        }
+
+        if ($model instanceof User && !empty($model->profile_picture)) {
+            return $model->profile_picture_url;
+        }
+
+        return asset(config('quikservice.default.user.profile_picture'));
     }
 }

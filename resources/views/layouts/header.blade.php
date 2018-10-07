@@ -49,6 +49,7 @@
                         </ul>
                     </nav>
 
+                    @if(!isset($user))
                     <div class="d-lg-flex HeaderNavlinkDiv">
 
                         <span class="d-block d-lg-inline-block">
@@ -59,6 +60,9 @@
                             </div>
                         </span>
                     </div>
+                    @else
+                        @include('partials.header-account')
+                    @endif
                 </div>
             </div>
         </header>

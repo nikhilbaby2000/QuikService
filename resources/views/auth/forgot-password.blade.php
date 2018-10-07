@@ -4,10 +4,6 @@
     Forgot Password | QuikService
 @endsection
 
-@section('header')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/basic.css') }}">
-@endsection
-
 @section('content')
 
 <div class="logged-out env-production page-responsive min-width-0 session-authentication">

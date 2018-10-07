@@ -4,10 +4,6 @@
     Sign in to QuikService
 @endsection
 
-@section('header')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/basic.css') }}">
-@endsection
-
 @section('content')
 
 <div class="logged-out env-production page-responsive min-width-0 session-authentication">
@@ -34,10 +30,14 @@
                         <h1>Sign in to QuikService</h1>
                     </div>
 
+                    <?php
+                    $isEmail = get_flash('by_email');
+                    ?>
 
                     <div id="js-flash-container">
                         @if ($errors->any())
                             @foreach ($errors->all() as $error)
+                                <?php $isEmail = substr_exist($error, 'email') ? 'email' : ''; ?>
                                 @include('partials.flash-message', ['type' => 'error', 'message' => $error])
                             @endforeach
                         @endif
@@ -48,10 +48,6 @@
                             @include('partials.flash-message', ['type' => 'success', 'message' => get_flash('success')])
                         @endif
                     </div>
-
-                    <?php
-                        $isEmail = get_flash('by_email');
-                    ?>
 
                     <div class="auth-form-body mt-3 login-email" @if(!(!empty($isEmail) && $isEmail == 'email')) style="display: none;" @endif>
 

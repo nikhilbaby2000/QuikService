@@ -1,9 +1,12 @@
 @extends('layouts.base')
 
+@section('title')
+    Verify Identity | QuikService
+@endsection
+
 @include('layouts.header')
 
 @section('header')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/basic.css') }}">
     <style type="text/css">
         .flash-close {
             display: none !important;

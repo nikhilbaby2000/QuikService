@@ -4,10 +4,6 @@
     Register | QuikService
 @endsection
 
-@section('header')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/basic.css') }}">
-@endsection
-
 @include('layouts.header')
 
 @section('content')

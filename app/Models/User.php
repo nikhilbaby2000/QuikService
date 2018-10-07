@@ -4,20 +4,23 @@ namespace App\Models;
 
 use App\Models\Access\Role;
 use App\Models\Traits\HasActive;
-use App\Models\Traits\UserAccessScopeTrait;
+use App\Models\Traits\DeleteOldFiles;
 use App\Models\Traits\UserAccessTrait;
+use Illuminate\Notifications\Notifiable;
+use App\Models\Traits\UserAccessScopeTrait;
 use App\QuikService\Services\OTP\CanSendOTP;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use CanSendOTP,
-//        DeleteOldFiles,
+        DeleteOldFiles,
         HasActive,
         Notifiable,
-//        SearchableTrait,
+        SearchableTrait,
         SoftDeletes,
         UserAccessScopeTrait,
         UserAccessTrait;
@@ -28,7 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password', 'mobile', 'active', 'email_confirmed', 'mobile_confirmed', 'email_confirmation_token', 'otp'
+        'name', 'username', 'email', 'password', 'mobile', 'profile_picture', 'active', 'email_confirmed', 'mobile_confirmed', 'email_confirmation_token', 'otp'
     ];
 
     /**
@@ -60,6 +63,44 @@ class User extends Authenticatable
         'mobile_confirmed' => 'boolean',
     ];
 
+    /**
+     * The attributes that have files that should be auto deleted on updating or deleting.
+     *
+     * @var array
+     */
+    public $deletableFiles = [
+        'profile_picture'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_picture_url'
+    ];
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchable = [
+        /**
+         * Columns and their priority in search results.
+         * Columns with higher values are more important.
+         * Columns with equal values have equal importance.
+         *
+         * @var array
+         */
+        'columns' => [
+            'users.name' => 10,
+            'users.username' => 10,
+            'users.email' => 10,
+            'users.mobile' => 10,
+        ],
+    ];
 
     /**
      * The roles associated with the user.
@@ -81,9 +122,38 @@ class User extends Authenticatable
         return $this->otp;
     }
 
+    /**
+     * Check if the give otp is valid or not.
+     *
+     * @param $otp
+     * @return bool
+     */
     public function isValidOTP($otp)
     {
         return hash_check($otp, $this->otp);
     }
 
+    /**
+     * The default file upload path.
+     *
+     * @return string|null
+     */
+    public function uploadPath()
+    {
+        return config('quikservice.user.upload.profile-picture.path');
+    }
+
+    /**
+     * Get the profile picture url.
+     *
+     * @return string|null
+     */
+    public function getProfilePictureUrlAttribute()
+    {
+        if (empty($this->profile_picture)) {
+            return null;
+        }
+
+        return Storage::url(file_path($this->uploadPath(), $this->profile_picture));
+    }
 }

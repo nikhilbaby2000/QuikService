@@ -31,49 +31,14 @@ class RolesAndPermissionsSeeder extends Seeder
             'description' => 'Normal user with standard access',
             'permissions' => []
         ],
-        RoleSlug::PAM_MASTER => [
-            'name' => 'PAM Master',
-            'description' => 'Main pam user with all pam access',
+        RoleSlug::BRANCH_MANAGER => [
+            'name' => 'Branch Manager',
+            'description' => 'Main Shop user with all Branch access',
             'permissions' => []
         ],
-        RoleSlug::PAM_SURVEYOR => [
-            'name' => 'PAM Surveyor',
-            'description' => 'PAM Surveyor with permission to upload inventory',
-            'permissions' => []
-        ],
-        RoleSlug::PAM_LOADING_MANAGER => [
-            'name' => 'PAM Loading Manager',
-            'description' => 'PAM Loading Manager with standard access to load inventory',
-            'permissions' => []
-        ],
-        RoleSlug::PAM_UNLOADING_MANAGER => [
-            'name' => 'PAM Unloading Manager',
-            'description' => 'PAM Unloading Manager with standard access to unload inventory',
-            'permissions' => []
-        ],
-        RoleSlug::CORPORATE_MASTER => [
-            'name' => 'Corporate Master',
-            'description' => 'Main corporate user with all corporate access',
-            'permissions' => []
-        ],
-        RoleSlug::CORPORATE_POC => [
-            'name' => 'Corporate POC',
-            'description' => 'Main corporate POC user with all corporate access below the master',
-            'permissions' => []
-        ],
-        RoleSlug::CORPORATE_BRANCH_POC => [
-            'name' => 'Corporate Branch POC',
-            'description' => 'Corporate Branch POC user with standard access',
-            'permissions' => []
-        ],
-        RoleSlug::CORPORATE_EMPLOYEE => [
-            'name' => 'Corporate Employee',
-            'description' => 'Corporate employees that have attached their account',
-            'permissions' => []
-        ],
-        RoleSlug::PAM_ADMIN => [
-            'name' => 'PAM Admin',
-            'description' => 'PAM Admin who manages all pam users and actions',
+        RoleSlug::BUSINESS_MANAGER => [
+            'name' => 'Business Manager',
+            'description' => 'Business Owner with access to all Branches',
             'permissions' => []
         ],
         RoleSlug::CUSTOMER_SUPPORT => [
