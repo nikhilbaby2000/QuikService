@@ -21,19 +21,19 @@
                 <details-menu class="dropdown-menu dropdown-menu-sw" role="menu">
 
                     <a role="menuitem" class="dropdown-item" href="/new" data-ga-click="Header, create new repository">
-                        New repository
+                        New Service Request
                     </a>
 
                     <a role="menuitem" class="dropdown-item" href="/new/import" data-ga-click="Header, import a repository">
-                        Import repository
+                        Refund Request
                     </a>
 
                     <a role="menuitem" class="dropdown-item" href="https://gist.github.com/" data-ga-click="Header, create new gist">
-                        New gist
+                        New Enquiry
                     </a>
 
                     <a role="menuitem" class="dropdown-item" href="/organizations/new" data-ga-click="Header, create new organization">
-                        New organization
+                        Add New Branch
                     </a>
 
                 </details-menu>
