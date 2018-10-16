@@ -23717,12 +23717,11 @@ dl.form-group > dd textarea.compact {
 }
 
 .setup-header {
-    margin-right: 144px !important;
-    margin-left: 144px !important;
-    padding: 16px 44px;
+    padding-bottom: 20px;
+    margin: 0 auto 30px;
     overflow: hidden;
     text-align: left;
-    border-bottom: 1px solid #ddd
+    border-bottom: 1px solid #ddd;
 }
 
 .setup-header h1 {

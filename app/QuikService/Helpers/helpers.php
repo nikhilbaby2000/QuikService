@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Cache\TaggableStore;
 use Illuminate\Support\Debug\Dumper;
@@ -879,7 +880,6 @@ if (! function_exists('process_list')) {
     }
 }
 
-
 if (! function_exists('avatar')) {
     /**
      * Get Avatar URL.
@@ -898,5 +898,19 @@ if (! function_exists('avatar')) {
         }
 
         return asset(config('quikservice.default.user.profile_picture'));
+    }
+}
+
+if (! function_exists('slug')) {
+    /**
+     * Get Avatar URL.
+     *
+     * @param $string
+     * @param string $separator
+     * @return string
+     */
+    function slug($string, $separator = '-')
+    {
+        return Str::slug($string, $separator);
     }
 }

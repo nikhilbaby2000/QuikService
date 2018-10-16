@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateShopsTable extends Migration
+class CreateBranchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,13 @@ class CreateShopsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shops', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('branches', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string('name');
-            $table->string('code', 15);
-            $table->string('slug', 15);
-            $table->string('email');
-            $table->string('phone', 13);
             $table->longText('address');
+            $table->string('email', 50)->nullable();
+            $table->string('phone', 15);
             $table->string('lat_long')->nullable();
-            $table->boolean('active')->default(false);
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -35,6 +30,6 @@ class CreateShopsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shops');
+        Schema::dropIfExists('branches');
     }
 }

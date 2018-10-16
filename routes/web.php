@@ -88,9 +88,29 @@ Route::middleware(role_middleware([Role::USER]))
 
 
 
-Route::prefix('shop')
+Route::prefix('shops')
     ->namespace('Shop')
     ->group(function () {
-        Route::get('/', ['as' => 'shop_list', 'uses' => 'ShopController@index']);
-        Route::get('{shop_code}/details', ['as' => 'shop_detail', 'uses' => 'ShopDetailController@show']);
+
+        // Get Shop Register view
+        Route::get('new', ['as' => 'add_new_shop', 'uses' => 'ShopRegistrationController@view']);
+
+        Route::post('new', ['as' => 'register_shop', 'uses' => 'ShopRegistrationController@register']);
+
+
+
+//        Route::get('/', ['as' => 'shop_list', 'uses' => 'ShopController@index']);
+
+
+
+//        Route::get('{shop_code}/details', ['as' => 'shop_detail', 'uses' => 'ShopDetailController@show']);
 }, null);
+
+Route::prefix('availability-check')
+    ->namespace('Verify')
+    ->group(function () {
+
+        // Check if a shop is available.
+        Route::post('shop', ['as' => 'verify_shop', 'uses' => 'SignUpVerifyController@shop']);
+    }, null);
+

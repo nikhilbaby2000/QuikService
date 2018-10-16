@@ -11,6 +11,14 @@
         .flash-close {
             display: none !important;
         }
+        .setup-header {
+            margin-right: 144px !important;
+            margin-left: 144px !important;
+            padding: 16px 44px;
+            overflow: hidden;
+            text-align: left;
+            border-bottom: 1px solid #ddd
+        }
     </style>
 @endsection
 

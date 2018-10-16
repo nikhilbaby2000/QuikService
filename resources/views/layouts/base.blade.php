@@ -29,7 +29,60 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
         flashEvent();
+        var searchRequest = null;
+
+        $('auto-check input').keyup(function () {
+            var autoCheckUrl = $(this).parents('auto-check').attr('src');
+            var elt = $(this);
+            var input = $(this).val();
+
+            if (searchRequest) {
+                searchRequest.abort();
+            }
+
+            $(elt)
+                .removeClass('is-autocheck-errored')
+                .removeClass('is-autocheck-successful')
+                .addClass('is-autocheck-loading')
+                .parents('auto-check')
+                .removeClass('errored')
+                .removeClass('successed')
+                .addClass('is-loading');
+
+            if (!input) {
+                $(elt)
+                    .removeClass('is-autocheck-loading')
+                    .parents('auto-check')
+                    .removeClass('is-loading');
+                return;
+            }
+
+            searchRequest = ajax(
+                autoCheckUrl,
+                {input: input},
+                function (response) {
+                    if (response.data.available) {
+                        $(elt)
+                            .removeClass('is-autocheck-errored')
+                            .removeClass('is-autocheck-loading')
+                            .addClass('is-autocheck-successful')
+                            .parents('auto-check')
+                            .removeClass('errored')
+                            .removeClass('errored')
+                            .addClass('successed');
+                    } else {
+                        $(elt)
+                            .addClass('is-autocheck-errored')
+                            .removeClass('is-autocheck-successful')
+                            .removeClass('is-autocheck-loading')
+                            .parents('auto-check')
+                            .addClass('errored')
+                            .removeClass('successed');
+                    }
+                })
+        });
     });
 
     function flashEvent() {
